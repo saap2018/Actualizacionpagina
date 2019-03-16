@@ -1,0 +1,51 @@
+<?php
+require_once 'model/empleado.php';
+
+class EmpleadoController{
+    
+    private $model;
+    
+    public function __CONSTRUCT(){
+        $this->model = new Empleado();
+    }
+    
+    public function Index(){
+        require_once 'view/header.php';
+        require_once 'view/empleado/empleado.php';
+        require_once 'view/footer.php';
+    }
+    
+    public function Crud(){
+        $alm = new Empleado();
+        
+        if(isset($_REQUEST['id'])){
+            $alm = $this->model->Obtener($_REQUEST['id']);
+        }
+        
+        require_once 'view/header.php';
+        require_once 'view/empleado/empleado-editar.php';
+        require_once 'view/footer.php';
+    }
+    
+    public function Guardar(){
+        $alm = new Empleado();
+        
+        $alm->id_Empleado = $_REQUEST['id_Empleado'];
+        $alm->tipo = $_REQUEST['tipo'];
+        $alm->modelo = $_REQUEST['modelo'];
+        $alm->placa = $_REQUEST['placa'];
+        $alm->marca = $_REQUEST['marca'];
+        $alm->referencia = $_REQUEST['referencia'];
+
+        $alm->id_Empleado > 0 
+            ? $this->model->Actualizar($alm)
+            : $this->model->Registrar($alm);
+        
+        header('Location: empleados.php');
+    }
+    
+    public function Eliminar(){
+        $this->model->Eliminar($_REQUEST['id']);
+        header('Location: empleados.php');
+    }
+}

@@ -1,0 +1,24 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th >Hora de ingreso</th> 
+            <th>Hora de ingreso</th>
+            <th>Placa del Vehiculo</th>
+            <th style="width:60px;"></th>
+            <th style="width:60px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach($this->model->Listar() as $r): ?>
+        <tr>
+            <td><?php echo $r->HoraEntrada; ?></td>
+            <td><?php echo $r->HoraSalida; ?></td>
+            <td><?php echo $r->PlacaVehiculo; ?></td>
+           
+            <td>
+                <a onclick="javascript:return confirm('¿Seguro de eliminar este registro?');" href="?c=Tiempo&a=Eliminar&id=<?php echo $r->IdControlTiempo; ?>">Eliminar</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table> 
